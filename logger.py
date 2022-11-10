@@ -1,7 +1,7 @@
 import os
 import datetime
 
-def logger(path):    
+def logger(path=None):    
     def __logger(old_function):
         
 
@@ -13,7 +13,7 @@ def logger(path):
             if not os.path.exists(path): open(path, 'x').close()
                 
             with open(path, 'a', encoding='utf-8') as log_file:
-                log_file.write(f'{launch_date}, {old_function.__name__}, {args}, {kwargs}, {result} \n')
+                log_file.write(f'launch date:{launch_date}; function name:{old_function.__name__}; arguments:{args}; keyword arguments:{kwargs}; returned value:{result} \n')
                         
             return result
         
