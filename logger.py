@@ -4,15 +4,14 @@ import datetime
 def logger(path=None):    
     def __logger(old_function):
         
-
         def new_function(*args, **kwargs):
-            
+            log_path = ['main.log', path][bool(path)] #if path = None, logs will be put in main.log
             launch_date = datetime.datetime.now()
             result = old_function(*args, **kwargs)
             
-            if not os.path.exists(path): open(path, 'x').close()
+            if not os.path.exists(log_path): open(log_path, 'x').close()
                 
-            with open(path, 'a', encoding='utf-8') as log_file:
+            with open(log_path, 'a', encoding='utf-8') as log_file:
                 log_file.write(f'launch date:{launch_date}; function name:{old_function.__name__}; arguments:{args}; keyword arguments:{kwargs}; returned value:{result} \n')
                         
             return result
